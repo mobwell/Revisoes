@@ -3,6 +3,8 @@ package pt.atec.revisoes;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import pt.atec.revisoes.fragments.FragFight;
+import pt.atec.revisoes.modelo.Monstro;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,11 +85,22 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tr = fm.beginTransaction();
 
-        } else if (id == R.id.nav_slideshow) {
+        FragFight fight = null;
+        if (id == R.id.m_monstro1) {
+            Monstro bill = new Monstro(R.drawable.gates, 90);
+            fight = new FragFight(bill);
+            // Handle the camera action
+        } else if (id == R.id.m_monstro2) {
+            Monstro jobs = new Monstro(R.drawable.jobs, 40);
+            fight = new FragFight(jobs);
+        } else if (id == R.id.m_monstro3) {
+            Monstro mos = new Monstro(R.drawable.febre2, 10);
+            fight = new FragFight(mos);
+        }
+        /*else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
@@ -93,6 +109,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
+*/
+        tr.replace(R.id.main_container, fight);
+        tr.commit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
